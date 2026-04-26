@@ -40,7 +40,7 @@ async function callOpenRouter(model, prompt) {
       headers: {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "http://localhost:5174",
+"HTTP-Referer": process.env.FRONTEND_URL || "http://localhost:5173",
         "X-Title": "Muse AI App",
       },
     }
@@ -386,16 +386,21 @@ router.get("/dashboard", async (req, res) => {
 
 router.get("/history", async (req, res) => {
   try {
-    
-      const { userId } = getAuth(req);
+    const { userId } = getAuth(req);
 
-const data = await Creation.find({ userId })
-  
+    // ✅ SAME PATTERN AS OTHER ROUTES
+    if (!userId) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const data = await Creation.find({ userId })
       .sort({ createdAt: -1 })
       .limit(20);
 
     res.json({ data });
-  } catch {
+
+  } catch (err) {
+    console.log("❌ HISTORY ERROR:", err.message);
     res.json({ data: [] });
   }
 });
