@@ -48,7 +48,7 @@ export default function Footer() {
       {/* bottom */}
       <div className="mt-12 border-t border-white/20 pt-6 flex flex-col md:flex-row justify-between text-sm text-gray-200 max-w-6xl mx-auto">
         <p>© 2026 Muse.ai. All rights reserved.</p>
-        <p>Made with ❤️ by Team VA</p>
+        <p>Made with ❤️ by  riya </p>
       </div>
     </footer>
   );
