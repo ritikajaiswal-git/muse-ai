@@ -1,3 +1,4 @@
+import { SignIn, SignUp } from "@clerk/clerk-react";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import { NavLink, Route, Routes, useLocation } from "react-router-dom";
@@ -49,6 +50,8 @@ export default function App() {
       <Routes>
 
         <Route path="/" element={<LandingPage />} />
+      <Route path="/sign-in/*" element={<SignIn routing="path" path="/sign-in" />} />
+<Route path="/sign-up/*" element={<SignUp routing="path" path="/sign-up" />} />
 
         <Route
           path="/ai/*"

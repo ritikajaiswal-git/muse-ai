@@ -12,8 +12,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ClerkProvider
       publishableKey={PUBLISHABLE_KEY}
-      afterSignInUrl="/ai/dashboard"
-      afterSignUpUrl="/ai/dashboard"
+       fallbackRedirectUrl="/dashboard"
+      // afterSignInUrl="/ai/dashboard"
+      // afterSignUpUrl="/ai/dashboard"
     >
       <BrowserRouter>
         <App />
