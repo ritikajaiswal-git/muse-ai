@@ -1,3 +1,4 @@
+import { useAuth } from "@clerk/clerk-react";
 import { useState } from "react";
 import api from "../api";
 
@@ -6,6 +7,7 @@ export default function RemoveBackgroundPage() {
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { getToken } = useAuth();
 
   const handleSubmit = async () => {
     if (!file || loading) return;
@@ -18,10 +20,14 @@ export default function RemoveBackgroundPage() {
       const formData = new FormData();
       formData.append("image", file);
 
-      const res = await api.post("/image/remove-bg", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+     const token = await getToken();
 
+const res = await api.post("/image/remove-bg", formData, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "multipart/form-data",
+  },
+});
       if (res.data.imageUrl) {
         setOutput(res.data.imageUrl);
       } else {
